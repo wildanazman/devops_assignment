@@ -13,8 +13,7 @@ pipeline {
             steps {
                 script {
                   
-                    sh 'cd /usr/local/devops_class'
-
+                   
                     
                     sh 'docker-compose up -d'  // Run docker-compose up -d
 
