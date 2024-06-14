@@ -5,10 +5,11 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                apt-get update
-                apt-get install -y python3.9
-                python3.9 -m pip install --upgrade pip
-                python3.9 -m pip install pytest
+                sudo apt-get update
+                sudo apt-get install -y python3 python3-venv python3-pip
+                python3 -m venv /venv
+                source /venv/bin/activate
+                pip3 install pytest selenium
                 '''
             }
         }
@@ -16,8 +17,9 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                cd /var/jenkins_home/workspace/jnkins/devops_class
-                docker compose up -d
+                docker-compose up -d
+                sleep 15
+                python3 test_devopstest.py
                 '''
             }
         }
