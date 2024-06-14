@@ -1,11 +1,28 @@
 pipeline {
     agent any
+environment {
+        // Define the Python version to install
+        PYTHON_VERSION = '3.9.5'
+    }
 
     stages {
         stage('Build') {
             steps {
+                // Install Python and necessary packages
                 sh '''
-                cd /var/jenkins_home/workspace/jnkins 
+                apt-get update
+                apt-get install -y python${PYTHON_VERSION}
+                python${PYTHON_VERSION} -m pip install --upgrade pip
+                python${PYTHON_VERSION} -m pip install pytest
+                # Install any other necessary dependencies
+                '''
+            }
+        }
+    
+        stage('Test') {
+            steps {
+                sh '''
+                cd /var/jenkins_home/workspace/jnkins/devops_class
                 docker compose up -d
                 '''
             }
