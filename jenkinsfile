@@ -13,10 +13,12 @@ pipeline {
             steps {
                 script {
                   
-                   sh 'cd /var/jenkins_home/workspace/jnkins '
+                   sh '''
+                    cd /var/jenkins_home/workspace/jnkins 
                     
-                    sh 'docker compose up -d'  // Run docker-compose up -d
+                    docker compose up -d // Run docker-compose up -d
 
+                    '''
                 }
             }
         }
